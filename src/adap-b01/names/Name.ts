@@ -9,7 +9,6 @@ export class Name {
     constructor(other: string[], delimiter?: string) {
         this.components = other
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
-        //throw new Error("needs implementation");
     }
 
     /** Returns human-readable representation of Name instance */
@@ -21,40 +20,38 @@ export class Name {
                 nameString += this.delimiter
         }
         return nameString
-        //throw new Error("needs implementation");
     }
 
     public getComponent(i: number): string {
         if (i === undefined || null) 
-            throw new Error("i is undefined or null");
+            throw new Error("index is undefined or null");
         return this.components[i]
-        //throw new Error("needs implementation");
     }
 
     public setComponent(i: number, c: string): void {
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
         this.components[i] = c
-        //throw new Error("needs implementation");
     }
 
     public getNoComponents(): number {
         return this.components.length
-        //throw new Error("needs implementation");
     }
 
     public insert(i: number, c: string): void {
-        
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
         this.components.splice(i, 0, c)
-        //throw new Error("needs implementation");
     }
 
     public append(c: string): void {
         this.components.push(c);
-        //throw new Error("needs implementation");
     }
 
     public remove(i: number): void {
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
         delete this.components[i]
-        //throw new Error("needs implementation");
     }
 
 }
