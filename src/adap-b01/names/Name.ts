@@ -12,7 +12,7 @@ export class Name {
     }
 
     /** Returns human-readable representation of Name instance */
-    // @methodtype get-method 
+    // @methodtype get-method (Query method)
     public asNameString(delimiter: string = this.delimiter): string {
         let nameString: string = ""
         for(let i=0;i<this.components.length;i++) {
@@ -23,38 +23,38 @@ export class Name {
         return nameString
     }
 
-    // @methodtype get-method
+    // @methodtype get-method (Query method)
     public getComponent(i: number): string {
         if (i === undefined || null) 
             throw new Error("index is undefined or null");
         return this.components[i]
     }
 
-    // @methodtype set-method
+    // @methodtype set-method (mutation-method)
     public setComponent(i: number, c: string): void {
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
         this.components[i] = c
     }
 
-    // @methodtype get-method
+    // @methodtype get-method (Query method)
     public getNoComponents(): number {
         return this.components.length
     }
 
-    // @methodtype mutation-method
+    // @methodtype set-method (mutation-method)
     public insert(i: number, c: string): void {
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
         this.components.splice(i, 0, c)
     }
 
-    // @methodtype mutation-method
+    // @methodtype set-method (mutation-method)
     public append(c: string): void {
         this.components.push(c);
     }
 
-    // @methodtype mutation-method
+    // @methodtype set-method (mutation-method)
     public remove(i: number): void {
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
