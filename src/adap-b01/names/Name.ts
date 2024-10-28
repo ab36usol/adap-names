@@ -12,7 +12,7 @@ export class Name {
     }
 
     /** Returns human-readable representation of Name instance */
-    // @methodtype  Mutation method 
+    // @methodtype get-method 
     public asNameString(delimiter: string = this.delimiter): string {
         let nameString: string = ""
         for(let i=0;i<this.components.length;i++) {
