@@ -13,13 +13,13 @@ export class StringName implements Name {
         this.length = other.split(this.delimiter).length
         
     }
-
+    // @methodtype conversion-method (Query method)
     public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
+        return this.name
     }
-
+    // @methodtype conversion-method (Query method)
     public asDataString(): string {
-        throw new Error("needs implementation");
+        return this.name.replace(this.delimiter,"")
     }
 
     public isEmpty(): boolean {
@@ -30,7 +30,7 @@ export class StringName implements Name {
     }
 
     public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
+        return this.delimiter
     }
 
     public getNoComponents(): number {
@@ -61,7 +61,7 @@ export class StringName implements Name {
 
     public remove(n: number): void {
         let split_name : string[] = this.name.split(this.delimiter)
-        delete split_name[n]
+        split_name.splice(n,1)
         this.name = split_name.join(this.delimiter)
         this.length--;
     }

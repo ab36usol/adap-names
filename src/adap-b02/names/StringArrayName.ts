@@ -9,24 +9,34 @@ export class StringArrayName implements Name {
         this.components = other
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
     }
-
+    // @methodtype conversion-method (Query method)
     public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
+        let nameString: string = ""
+        for(let i=0;i<this.components.length;i++) {
+            nameString += this.components[i]
+            if(i<this.components.length-1) 
+                nameString += this.delimiter
+        }
+        return nameString
     }
-
+    // @methodtype conversion-method (Query method)
     public asDataString(): string {
-        throw new Error("needs implementation");
+        let nameString: string = ""
+        for(let i=0;i<this.components.length;i++) {
+            nameString += this.components[i]
+        }
+        return nameString
     }
     // @methodtype assertion-method (Helper method)
     public isEmpty(): boolean {
         if(this.components.length < 1) return true
         else return false
     }
-
+    // @methodtype get-method (Query method)
     public getDelimiterCharacter(): string {
         throw new Error("needs implementation");
     }
-
+    // @methodtype get-method (Query method)
     public getNoComponents(): number {
         return this.components.length
     }
@@ -56,7 +66,7 @@ export class StringArrayName implements Name {
     public remove(i: number): void {
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
-        delete this.components[i]
+        this.components.splice(i,1)
     }
     // @methodtype command-method (Query method)
     public concat(other: Name): void {
