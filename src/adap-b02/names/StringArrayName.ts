@@ -6,43 +6,61 @@ export class StringArrayName implements Name {
     protected delimiter: string = DEFAULT_DELIMITER;
 
     constructor(other: string[], delimiter?: string) {
-        throw new Error("needs implementation");
+        this.components = other
+        this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
     }
-
+    // @methodtype conversion-method (Query method)
     public asNameString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
+        let nameString: string = ""
+        for(let i=0;i<this.components.length;i++) {
+            nameString += this.components[i]
+            if(i<this.components.length-1) 
+                nameString += this.delimiter
+        }
+        return nameString
     }
-
+    // @methodtype assertion-method (Helper method)
     public isEmpty(): boolean {
-        throw new Error("needs implementation");
+        if(this.components.length < 1) return true
+        else return false
     }
-
+    // @methodtype get-method (Query method)
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.components.length
     }
-
+    // @methodtype get-method (Query method)
     public getComponent(i: number): string {
-        throw new Error("needs implementation");
+        if (i === undefined || null) 
+            throw new Error("index is undefined or null");
+        return this.components[i]
     }
-
+    // @methodtype set-method (Mutation method)
     public setComponent(i: number, c: string): void {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
+        this.components[i] = c
     }
-
+    // @methodtype command-method (Query method)
     public insert(i: number, c: string): void {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
+        this.components.splice(i, 0, c)
     }
-
+    // @methodtype command-method (Query method)
     public append(c: string): void {
-        throw new Error("needs implementation");
+        this.components.push(c);
     }
-
+    // @methodtype command-method (Query method)
     public remove(i: number): void {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
+        delete this.components[i]
     }
-
+    // @methodtype command-method (Query method)
     public concat(other: Name): void {
-        throw new Error("needs implementation");
+        for(let i=0;i < other.getNoComponents();i++) {
+            this.components.concat(other.getComponent(i))
+        }
     }
 
 }
