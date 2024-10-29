@@ -5,7 +5,7 @@ export class StringName implements Name {
     protected delimiter: string = DEFAULT_DELIMITER;
 
     protected name: string = "";
-    protected length: number = 0; // Number of components in Name instance
+    protected length: number = 0;
 
     constructor(other: string, delimiter?: string) {
         this.name = other
@@ -14,8 +14,12 @@ export class StringName implements Name {
         
     }
 
-    public asNameString(delimiter: string = this.delimiter): string {
-        return this.name
+    public asString(delimiter: string = this.delimiter): string {
+        throw new Error("needs implementation");
+    }
+
+    public asDataString(): string {
+        throw new Error("needs implementation");
     }
 
     public isEmpty(): boolean {
@@ -23,6 +27,10 @@ export class StringName implements Name {
             return false 
         else 
             return true
+    }
+
+    public getDelimiterCharacter(): string {
+        throw new Error("needs implementation");
     }
 
     public getNoComponents(): number {
@@ -59,7 +67,7 @@ export class StringName implements Name {
     }
 
     public concat(other: Name): void {
-        this.name = this.name + this.delimiter + other.asNameString
+        this.name = this.name + this.delimiter + other.asString()
         this.length = this.length + other.getNoComponents();
     }
 

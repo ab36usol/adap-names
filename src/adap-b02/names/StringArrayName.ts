@@ -9,22 +9,24 @@ export class StringArrayName implements Name {
         this.components = other
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
     }
-    // @methodtype conversion-method (Query method)
-    public asNameString(delimiter: string = this.delimiter): string {
-        let nameString: string = ""
-        for(let i=0;i<this.components.length;i++) {
-            nameString += this.components[i]
-            if(i<this.components.length-1) 
-                nameString += this.delimiter
-        }
-        return nameString
+
+    public asString(delimiter: string = this.delimiter): string {
+        throw new Error("needs implementation");
+    }
+
+    public asDataString(): string {
+        throw new Error("needs implementation");
     }
     // @methodtype assertion-method (Helper method)
     public isEmpty(): boolean {
         if(this.components.length < 1) return true
         else return false
     }
-    // @methodtype get-method (Query method)
+
+    public getDelimiterCharacter(): string {
+        throw new Error("needs implementation");
+    }
+
     public getNoComponents(): number {
         return this.components.length
     }
