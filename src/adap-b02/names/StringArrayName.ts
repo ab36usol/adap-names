@@ -11,21 +11,25 @@ export class StringArrayName implements Name {
     }
     // @methodtype conversion-method (Query method)
     public asString(delimiter: string = this.delimiter): string {
-        let nameString: string = ""
-        for(let i=0;i<this.components.length;i++) {
-            nameString += this.components[i]
-            if(i<this.components.length-1) 
-                nameString += this.delimiter
+        let str: string = this.components.join(delimiter)
+        
+        let res: string = ""
+        for(let i=0;i<str.length;i++) {
+            if(str[i] === ESCAPE_CHARACTER) {
+                if(i+1<str.length) {
+                    i++;
+                    res += str[i]
+                    continue
+                }
+                continue
+            }
+            res += str[i]    
         }
-        return nameString
+        return str
     }
     // @methodtype conversion-method (Query method)
     public asDataString(): string {
-        let nameString: string = ""
-        for(let i=0;i<this.components.length;i++) {
-            nameString += this.components[i]
-        }
-        return nameString
+        return this.components.join(this.delimiter)
     }
     // @methodtype assertion-method (Helper method)
     public isEmpty(): boolean {
