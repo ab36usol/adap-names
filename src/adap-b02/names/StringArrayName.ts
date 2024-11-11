@@ -12,19 +12,6 @@ export class StringArrayName implements Name {
     // @methodtype conversion-method (Query method)
     public asString(delimiter: string = this.delimiter): string {
         let str: string = this.components.join(delimiter)
-        
-        let res: string = ""
-        for(let i=0;i<str.length;i++) {
-            if(str[i] === ESCAPE_CHARACTER) {
-                if(i+1<str.length) {
-                    i++;
-                    res += str[i]
-                    continue
-                }
-                continue
-            }
-            res += str[i]    
-        }
         return str
     }
     // @methodtype conversion-method (Query method)
@@ -38,7 +25,7 @@ export class StringArrayName implements Name {
     }
     // @methodtype get-method (Query method)
     public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
+        return this.delimiter
     }
     // @methodtype get-method (Query method)
     public getNoComponents(): number {
@@ -78,5 +65,4 @@ export class StringArrayName implements Name {
             this.components.concat(other.getComponent(i))
         }
     }
-
 }

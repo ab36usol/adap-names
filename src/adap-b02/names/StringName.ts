@@ -73,6 +73,7 @@ export class StringName implements Name {
         this.length = this.length + other.getNoComponents();
     }
 
+    // @methodtype Helper Method
     private splitNotMaskedDelimiter(str: string, deleteEscapeCharacters: boolean ,delimiter: string = this.delimiter): string[] {
         let components: string[] = [""]
         let component_index: number = 0   
