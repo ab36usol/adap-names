@@ -8,27 +8,62 @@ export class StringName extends AbstractName {
 
     constructor(other: string, delimiter?: string) {
         super();
-        throw new Error("needs implementation");
+        this.length = this.splitNotMaskedDelimiter(other, false).length
     }
 
     getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.length
     }
 
     getComponent(i: number): string {
-        throw new Error("needs implementation");
+        return this.name.split(this.delimiter)[i];
     }
     setComponent(i: number, c: string) {
-        throw new Error("needs implementation");
+        let split_name : string[] = this.name.split(this.delimiter)
+        split_name[i] = c
+        this.name = split_name.join(this.delimiter)
     }
 
     insert(i: number, c: string) {
-        throw new Error("needs implementation");
+        let split_name : string[] = this.name.split(this.delimiter)
+        split_name.splice(i, 0, c)
+        this.name = split_name.join(this.delimiter)
+        this.length++;
     }
     append(c: string) {
-        throw new Error("needs implementation");
+        this.name = this.name + this.delimiter + c
+        this.length++;
     }
     remove(i: number) {
-        throw new Error("needs implementation");
+        let split_name : string[] = this.name.split(this.delimiter)
+        split_name.splice(i,1)
+        this.name = split_name.join(this.delimiter)
+        this.length--;
+    }
+
+    // @methodtype Helper Method
+    private splitNotMaskedDelimiter(str: string, deleteEscapeCharacters: boolean ,delimiter: string = this.delimiter): string[] {
+        let components: string[] = [""]
+        let component_index: number = 0   
+        for(let i=0;i<str.length;i++) {
+            if(str[i] === ESCAPE_CHARACTER) {
+                if(!deleteEscapeCharacters) {
+                    components[component_index] += str[i]
+                }
+                if(i+1<str.length) {
+                    i++;
+                    components[component_index] += str[i]
+                    continue
+                }
+                break
+            }
+            if(str[i] === delimiter){
+                components.push("")
+                component_index++;
+                continue
+            }
+            components[component_index] += str[i]
+        }
+        return components
     }
 }

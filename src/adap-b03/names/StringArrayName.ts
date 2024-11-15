@@ -7,27 +7,35 @@ export class StringArrayName extends AbstractName {
 
     constructor(other: string[], delimiter?: string) {
         super();
-        throw new Error("needs implementation");
+        this.components = other
     }
 
     getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.components.length
     }
 
     getComponent(i: number): string {
-        throw new Error("needs implementation");
+        if (i === undefined || null) 
+            throw new Error("index is undefined or null");
+        return this.components[i]
     }
     setComponent(i: number, c: string) {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
+        this.components[i] = c
     }
 
     insert(i: number, c: string) {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
+        this.components.splice(i, 0, c)
     }
     append(c: string) {
-        throw new Error("needs implementation");
+        this.components.push(c);
     }
     remove(i: number) {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new Error("invalid index");
+        this.components.splice(i,1)
     }
 }
