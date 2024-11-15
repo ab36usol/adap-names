@@ -7,8 +7,9 @@ export class StringName extends AbstractName {
     protected length: number = 0;
 
     constructor(other: string, delimiter?: string) {
-        super();
+        super(delimiter);
         this.length = this.splitNotMaskedDelimiter(other, false).length
+        this.name = other
     }
 
     getNoComponents(): number {
@@ -16,16 +17,16 @@ export class StringName extends AbstractName {
     }
 
     getComponent(i: number): string {
-        return this.name.split(this.delimiter)[i];
+        return this.splitNotMaskedDelimiter(this.name, false)[i];
     }
     setComponent(i: number, c: string) {
-        let split_name : string[] = this.name.split(this.delimiter)
+        let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name[i] = c
         this.name = split_name.join(this.delimiter)
     }
 
     insert(i: number, c: string) {
-        let split_name : string[] = this.name.split(this.delimiter)
+        let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i, 0, c)
         this.name = split_name.join(this.delimiter)
         this.length++;
@@ -35,7 +36,7 @@ export class StringName extends AbstractName {
         this.length++;
     }
     remove(i: number) {
-        let split_name : string[] = this.name.split(this.delimiter)
+        let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i,1)
         this.name = split_name.join(this.delimiter)
         this.length--;

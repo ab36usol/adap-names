@@ -1,6 +1,4 @@
-import { Any } from "@vitest/expect";
 import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
-//import { Name } from "../../adap-b01/names/Name";
 
 export abstract class AbstractName implements Name {
 
@@ -15,6 +13,7 @@ export abstract class AbstractName implements Name {
         for(let i: number = 1; i< this.getNoComponents(); i++) {
             res += delimiter + this.getComponent(i)
         }
+        res.replace(ESCAPE_CHARACTER, "")
         return res
     }
 
@@ -23,6 +22,7 @@ export abstract class AbstractName implements Name {
         for(let i: number = 1; i< this.getNoComponents(); i++) {
             res += this.delimiter + this.getComponent(i)
         }
+        res.replace(ESCAPE_CHARACTER, "")
         return res
     }
 
@@ -35,7 +35,7 @@ export abstract class AbstractName implements Name {
     }
 
     public isEqual(other: Name): boolean {
-        return this===other
+        return JSON.stringify(this) === JSON.stringify(other)
     }
 
     public getHashCode(): number {
@@ -47,7 +47,7 @@ export abstract class AbstractName implements Name {
     }
 
     public isEmpty(): boolean {
-        return this.getNoComponents() < 1
+        return this.getNoComponents() == 0
     }
 
     public getDelimiterCharacter(): string {
@@ -74,7 +74,7 @@ export abstract class AbstractName implements Name {
         for (var i = 0; i < string.length; i++) {
             var code = string.charCodeAt(i);
             hash = ((hash<<5)-hash)+code;
-            hash = hash & hash; // Convert to 32bit integer
+            hash = hash & hash;
         }
         return hash;
     }
