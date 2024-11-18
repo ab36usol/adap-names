@@ -67,4 +67,8 @@ export class StringName extends AbstractName {
         }
         return components
     }
+
+    create_newInstance(other: string, delimiter: string): Name {
+        return new StringName(other, delimiter)
+    }
 }

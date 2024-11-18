@@ -38,4 +38,9 @@ export class StringArrayName extends AbstractName {
             throw new Error("invalid index");
         this.components.splice(i,1)
     }
+
+    create_newInstance(other: string, delimiter: string): Name {
+        let other_array: string[] = other.split(delimiter)
+        return new StringArrayName(other_array, delimiter)
+    }
 }

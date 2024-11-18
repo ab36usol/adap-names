@@ -18,12 +18,7 @@ export abstract class AbstractName implements Name {
     }
 
     public toString(): string {
-        let res: string = this.getComponent(0)
-        for(let i: number = 1; i< this.getNoComponents(); i++) {
-            res += this.delimiter + this.getComponent(i)
-        }
-        res.replace(ESCAPE_CHARACTER, "")
-        return res
+        return this.asString()
     }
 
     public asDataString(): string {
@@ -39,11 +34,18 @@ export abstract class AbstractName implements Name {
     }
 
     public getHashCode(): number {
-        return this.hashCode(this.toString())
+        const s: string = this.asDataString();
+        var hash: number = 0;
+        for (var i = 0; i < s.length; i++) {
+            var code : number = s.charCodeAt(i);
+            hash = ((hash<<5)-hash)+code;
+            hash = hash & hash;
+        }
+        return hash;
     }
 
     public clone(): Name {
-       return JSON.parse(JSON.stringify(this));
+       return this.create_newInstance(this.asDataString(), this.delimiter)
     }
 
     public isEmpty(): boolean {
@@ -62,21 +64,12 @@ export abstract class AbstractName implements Name {
     abstract insert(i: number, c: string): void;
     abstract append(c: string): void;
     abstract remove(i: number): void;
+    abstract create_newInstance(other: string, delimiter: string): Name;
 
     public concat(other: Name): void {
-        for(let i: number = 0;other.getNoComponents; i++) {
+        for(let i: number = 0;other.getNoComponents(); i++) {
             this.append(other.getComponent(i))
         }
-    }
-
-    private hashCode(string: string){
-        var hash = 0;
-        for (var i = 0; i < string.length; i++) {
-            var code = string.charCodeAt(i);
-            hash = ((hash<<5)-hash)+code;
-            hash = hash & hash;
-        }
-        return hash;
     }
 
 }
