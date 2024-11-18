@@ -11,9 +11,9 @@ export abstract class AbstractName implements Name {
     public asString(delimiter: string = this.delimiter): string {
         let res: string = this.getComponent(0)
         for(let i: number = 1; i< this.getNoComponents(); i++) {
-            res += delimiter + this.getComponent(i)
+            let component_no_es = this.getComponent(i).split(ESCAPE_CHARACTER).join("")
+            res += delimiter + component_no_es
         }
-        res.replace(ESCAPE_CHARACTER, "")
         return res
     }
 
@@ -30,7 +30,7 @@ export abstract class AbstractName implements Name {
     }
 
     public isEqual(other: Name): boolean {
-        return JSON.stringify(this) === JSON.stringify(other)
+        return this.asDataString() === other.asDataString()
     }
 
     public getHashCode(): number {
