@@ -1,19 +1,20 @@
-import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
+import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
+import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
 
 export class StringName extends AbstractName {
 
     protected name: string = "";
-    protected length: number = 0;
+    protected noComponents: number = 0;
 
     constructor(other: string, delimiter?: string) {
         super(delimiter);
-        this.length = this.splitNotMaskedDelimiter(other, false).length
+        this.noComponents = this.splitNotMaskedDelimiter(other, false).length
         this.name = other
     }
 
     getNoComponents(): number {
-        return this.length
+        return this.noComponents
     }
 
     getComponent(i: number): string {
@@ -29,17 +30,17 @@ export class StringName extends AbstractName {
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i, 0, c)
         this.name = split_name.join(this.delimiter)
-        this.length++;
+        this.noComponents++;
     }
     append(c: string) {
         this.name = this.name + this.delimiter + c
-        this.length++;
+        this.noComponents++;
     }
     remove(i: number) {
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i,1)
         this.name = split_name.join(this.delimiter)
-        this.length--;
+        this.noComponents--;
     }
 
     // @methodtype Helper Method
@@ -71,4 +72,21 @@ export class StringName extends AbstractName {
     create_newInstance(other: string, delimiter: string): Name {
         return new StringName(other, delimiter)
     }
+
+    public getHashCode(): number {
+        throw new Error("needs implementation");
+    }
+
+    public isEmpty(): boolean {
+        throw new Error("needs implementation");
+    }
+
+    public getDelimiterCharacter(): string {
+        throw new Error("needs implementation");
+    }
+
+    public concat(other: Name): void {
+        throw new Error("needs implementation");
+    }
+
 }

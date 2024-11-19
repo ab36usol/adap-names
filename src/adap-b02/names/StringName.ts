@@ -1,11 +1,11 @@
-import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
+import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
+import { Name } from "./Name";
 
 export class StringName implements Name {
 
     protected delimiter: string = DEFAULT_DELIMITER;
-
     protected name: string = "";
-    protected length: number = 0;
+    protected noComponents: number = 0;
 
 
     constructor(other: string, delimiter?: string) {
@@ -23,6 +23,7 @@ export class StringName implements Name {
     public asDataString(): string {
         return this.name
     }
+<<<<<<< HEAD
     // @methodtype assertion-method (Helper method)
     public isEmpty(): boolean {
         if(this.name.length < 1) 
@@ -33,6 +34,15 @@ export class StringName implements Name {
     // @methodtype get-method (Query method)
     public getDelimiterCharacter(): string {
         return this.delimiter
+=======
+
+    public getDelimiterCharacter(): string {
+        throw new Error("needs implementation");
+    }
+
+    public isEmpty(): boolean {
+        throw new Error("needs implementation");
+>>>>>>> d9138b3fe1eb2f2636c006c484829e656d30139a
     }
     // @methodtype get-method (Query method)
     public getNoComponents(): number {
