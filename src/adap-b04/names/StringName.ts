@@ -8,68 +8,73 @@ export class StringName extends AbstractName {
     protected noComponents: number = 0;
 
     constructor(other: string, delimiter?: string) {
-        super();
-        throw new Error("needs implementation");
+        super(delimiter);
+        this.noComponents = this.splitNotMaskedDelimiter(other, false).length
+        this.name = other
     }
-
-    public clone(): Name {
-        throw new Error("needs implementation");
-    }
-
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
-    }
-
-    public toString(): string {
-        throw new Error("needs implementation");
-    }
-
-    public asDataString(): string {
-        throw new Error("needs implementation");
-    }
-
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation");
-    }
-
-    public getHashCode(): number {
-        throw new Error("needs implementation");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
-    }
-
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.noComponents
     }
 
     public getComponent(i: number): string {
-        throw new Error("needs implementation");
+        if (i === undefined || i === null)  throw new Error("index is undefined or null");
+        return this.splitNotMaskedDelimiter(this.name, false)[i];
     }
 
     public setComponent(i: number, c: string) {
-        throw new Error("needs implementation");
+        if (i === undefined || i === null) throw new Error("index is undefined or null");
+        let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
+        split_name[i] = c
+        this.name = split_name.join(this.delimiter)
     }
 
     public insert(i: number, c: string) {
-        throw new Error("needs implementation");
+        if (i === undefined || i === null) throw new Error("index is undefined or null");
+        let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
+        split_name.splice(i, 0, c)
+        this.name = split_name.join(this.delimiter)
+        this.noComponents++;
     }
 
     public append(c: string) {
-        throw new Error("needs implementation");
+        this.name = this.name + this.delimiter + c
+        this.noComponents++;
     }
 
     public remove(i: number) {
-        throw new Error("needs implementation");
+        if (i === undefined || i === null) throw new Error("index is undefined or null");
+        let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
+        split_name.splice(i,1)
+        this.name = split_name.join(this.delimiter)
+        this.noComponents--;
     }
 
-    public concat(other: Name): void {
-        throw new Error("needs implementation");
+    private splitNotMaskedDelimiter(str: string, deleteEscapeCharacters: boolean ,delimiter: string = this.delimiter): string[] {
+        let components: string[] = [""]
+        let component_index: number = 0   
+        for(let i=0;i<str.length;i++) {
+            if(str[i] === ESCAPE_CHARACTER) {
+                if(!deleteEscapeCharacters) {
+                    components[component_index] += str[i]
+                }
+                if(i+1<str.length) {
+                    i++;
+                    components[component_index] += str[i]
+                    continue
+                }
+                break
+            }
+            if(str[i] === delimiter){
+                components.push("")
+                component_index++;
+                continue
+            }
+            components[component_index] += str[i]
+        }
+        return components
     }
 
+    create_newInstance(other: string, delimiter: string): Name {
+        return new StringName(other, delimiter)
+    }
 }

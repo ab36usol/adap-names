@@ -7,67 +7,46 @@ export class StringArrayName extends AbstractName {
     protected components: string[] = [];
 
     constructor(other: string[], delimiter?: string) {
-        super();
-        throw new Error("needs implementation");
-    }
-
-    public clone(): Name {
-        throw new Error("needs implementation");
-    }
-
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
-    }
-
-    public toString(): string {
-        throw new Error("needs implementation");
-    }
-
-    public asDataString(): string {
-        throw new Error("needs implementation");
-    }
-
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation");
-    }
-
-    public getHashCode(): number {
-        throw new Error("needs implementation");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
+        super(delimiter);
+        this.components = other
     }
 
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.components.length
     }
 
     public getComponent(i: number): string {
-        throw new Error("needs implementation");
+        if (i === undefined || i === null) 
+            throw new Error("index is undefined or null");
+        return this.components[i]
     }
 
     public setComponent(i: number, c: string) {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new RangeError("invalid index");
+        this.components[i] = c
     }
 
     public insert(i: number, c: string) {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new RangeError("invalid index");
+        this.components.splice(i, 0, c)
     }
 
     public append(c: string) {
-        throw new Error("needs implementation");
+        this.components.push(c);
     }
 
     public remove(i: number) {
-        throw new Error("needs implementation");
+        if (i < 0 || i >= this.components.length) 
+            throw new RangeError("invalid index");
+        this.components.splice(i,1)
     }
 
-    public concat(other: Name): void {
-        throw new Error("needs implementation");
+    create_newInstance(other: string, delimiter: string): Name {
+        if(delimiter === null || delimiter === undefined) throw new Error("invalid delimiter")
+        if(other === null || other === undefined) throw new Error("invalid string")
+        let other_array: string[] = other.split(delimiter)
+        return new StringArrayName(other_array, delimiter)
     }
 }

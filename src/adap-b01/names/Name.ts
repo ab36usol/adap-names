@@ -24,10 +24,12 @@ export class Name {
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
     }
 
-<<<<<<< HEAD
-    /** Returns human-readable representation of Name instance */
-    // @methodtype conversion-method (Query method)
-    public asNameString(delimiter: string = this.delimiter): string {
+    /**
+     * Returns a human-readable representation of the Name instance using user-set control characters
+     * Control characters are not escaped (creating a human-readable string)
+     * Users can vary the delimiter character to be used
+     */
+    public asString(delimiter: string = this.delimiter): string {
         let nameString: string = ""
         for(let i=0;i<this.components.length;i++) {
             nameString += this.components[i]
@@ -35,14 +37,6 @@ export class Name {
                 nameString += this.delimiter
         }
         return nameString
-=======
-    /**
-     * Returns a human-readable representation of the Name instance using user-set control characters
-     * Control characters are not escaped (creating a human-readable string)
-     * Users can vary the delimiter character to be used
-     */
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
     }
 
     /** 
@@ -51,8 +45,13 @@ export class Name {
      * The control characters in the data string are the default characters
      */
     public asDataString(): string {
-        throw new Error("needs implementation");
->>>>>>> d9138b3fe1eb2f2636c006c484829e656d30139a
+        let nameString: string = ""
+        for(let i=0;i<this.components.length;i++) {
+            nameString += this.components[i]
+            if(i<this.components.length-1) 
+                nameString += this.delimiter
+        }
+        return nameString
     }
 
     // @methodtype get-method (Query method)
@@ -62,11 +61,7 @@ export class Name {
         return this.components[i]
     }
 
-<<<<<<< HEAD
-    // @methodtype set-method (mutation-method)
-=======
     /** Expects that new Name component c is properly masked */
->>>>>>> d9138b3fe1eb2f2636c006c484829e656d30139a
     public setComponent(i: number, c: string): void {
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
@@ -78,22 +73,16 @@ export class Name {
         return this.components.length
     }
 
-<<<<<<< HEAD
     // @methodtype set-method (mutation-method)
-=======
     /** Expects that new Name component c is properly masked */
->>>>>>> d9138b3fe1eb2f2636c006c484829e656d30139a
     public insert(i: number, c: string): void {
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
         this.components.splice(i, 0, c)
     }
 
-<<<<<<< HEAD
     // @methodtype set-method (mutation-method)
-=======
     /** Expects that new Name component c is properly masked */
->>>>>>> d9138b3fe1eb2f2636c006c484829e656d30139a
     public append(c: string): void {
         this.components.push(c);
     }

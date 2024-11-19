@@ -19,7 +19,6 @@ export class StringArrayName implements Name {
     public asDataString(): string {
         return this.components.join(this.delimiter)
     }
-<<<<<<< HEAD
     // @methodtype assertion-method (Helper method)
     public isEmpty(): boolean {
         if(this.components.length < 1) return true
@@ -28,15 +27,6 @@ export class StringArrayName implements Name {
     // @methodtype get-method (Query method)
     public getDelimiterCharacter(): string {
         return this.delimiter
-=======
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation");
->>>>>>> d9138b3fe1eb2f2636c006c484829e656d30139a
     }
     // @methodtype get-method (Query method)
     public getNoComponents(): number {

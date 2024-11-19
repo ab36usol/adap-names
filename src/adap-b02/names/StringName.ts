@@ -11,7 +11,7 @@ export class StringName implements Name {
     constructor(other: string, delimiter?: string) {
         this.name = other
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
-        this.length = this.splitNotMaskedDelimiter(other, false).length
+        this.noComponents = this.splitNotMaskedDelimiter(other, false).length
         
     }
     // @methodtype conversion-method (Query method)
@@ -23,7 +23,6 @@ export class StringName implements Name {
     public asDataString(): string {
         return this.name
     }
-<<<<<<< HEAD
     // @methodtype assertion-method (Helper method)
     public isEmpty(): boolean {
         if(this.name.length < 1) 
@@ -34,19 +33,10 @@ export class StringName implements Name {
     // @methodtype get-method (Query method)
     public getDelimiterCharacter(): string {
         return this.delimiter
-=======
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation");
->>>>>>> d9138b3fe1eb2f2636c006c484829e656d30139a
     }
     // @methodtype get-method (Query method)
     public getNoComponents(): number {
-        return this.length
+        return this.noComponents
     }
     // @methodtype get-method (Query method)
     public getComponent(x: number): string {
@@ -63,24 +53,24 @@ export class StringName implements Name {
         let split_name : string[] = this.name.split(this.delimiter)
         split_name.splice(n, 0, c)
         this.name = split_name.join(this.delimiter)
-        this.length++;
+        this.noComponents++;
     }
     // @methodtype command-method (Query method)
     public append(c: string): void {
         this.name = this.name + this.delimiter + c
-        this.length++;
+        this.noComponents++;
     }
     // @methodtype command-method (Query method)
     public remove(n: number): void {
         let split_name : string[] = this.name.split(this.delimiter)
         split_name.splice(n,1)
         this.name = split_name.join(this.delimiter)
-        this.length--;
+        this.noComponents--;
     }
     // @methodtype command-method (Query method)
     public concat(other: Name): void {
         this.name = this.name + this.delimiter + other.asString()
-        this.length = this.length + other.getNoComponents();
+        this.noComponents = this.noComponents + other.getNoComponents();
     }
 
     // @methodtype Helper Method
