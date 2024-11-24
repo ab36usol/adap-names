@@ -1,6 +1,7 @@
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
+import { IllegalArgumentException } from "../common/IllegalArgumentException";
 
 export class StringArrayName extends AbstractName {
 
@@ -17,7 +18,7 @@ export class StringArrayName extends AbstractName {
 
     public getComponent(i: number): string {
         if (i === undefined || i === null) 
-            throw new Error("index is undefined or null");
+            throw new IllegalArgumentException("index is undefined or null");
         return this.components[i]
     }
 
@@ -28,8 +29,7 @@ export class StringArrayName extends AbstractName {
     }
 
     public insert(i: number, c: string) {
-        if (i < 0 || i >= this.components.length) 
-            throw new RangeError("invalid index");
+        if (i < 0 || i >= this.components.length) throw new RangeError("invalid index");
         this.components.splice(i, 0, c)
     }
 

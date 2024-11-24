@@ -1,6 +1,7 @@
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
+import { IllegalArgumentException } from "../common/IllegalArgumentException";
 
 export class StringName extends AbstractName {
 
@@ -17,19 +18,21 @@ export class StringName extends AbstractName {
     }
 
     public getComponent(i: number): string {
-        if (i === undefined || i === null)  throw new Error("index is undefined or null");
+        if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         return this.splitNotMaskedDelimiter(this.name, false)[i];
     }
 
     public setComponent(i: number, c: string) {
-        if (i === undefined || i === null) throw new Error("index is undefined or null");
+        if (c === undefined || c === null) throw new IllegalArgumentException("index is undefined or null");
+        if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name[i] = c
         this.name = split_name.join(this.delimiter)
     }
 
     public insert(i: number, c: string) {
-        if (i === undefined || i === null) throw new Error("index is undefined or null");
+        if (c === undefined || c === null) throw new IllegalArgumentException("index is undefined or null");
+        if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i, 0, c)
         this.name = split_name.join(this.delimiter)
@@ -42,7 +45,7 @@ export class StringName extends AbstractName {
     }
 
     public remove(i: number) {
-        if (i === undefined || i === null) throw new Error("index is undefined or null");
+        if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i,1)
         this.name = split_name.join(this.delimiter)
@@ -75,6 +78,7 @@ export class StringName extends AbstractName {
     }
 
     create_newInstance(other: string, delimiter: string): Name {
+        if (other === undefined || other === null) throw new IllegalArgumentException("index is undefined or null");
         return new StringName(other, delimiter)
     }
 }
