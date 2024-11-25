@@ -7,7 +7,7 @@ export abstract class AbstractName implements Name {
     protected delimiter: string = DEFAULT_DELIMITER;
 
     constructor(delimiter: string = DEFAULT_DELIMITER) {
-        if(delimiter === null || delimiter === undefined) throw new IllegalArgumentException("invalid delimiter")
+        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
         this.delimiter = delimiter
     }
 
@@ -16,7 +16,7 @@ export abstract class AbstractName implements Name {
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        if(delimiter === null || delimiter === undefined) throw new IllegalArgumentException("invalid delimiter")
+        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
         let res: string = this.getComponent(0)
         for(let i: number = 1; i< this.getNoComponents(); i++) {
             let component_no_es = this.getComponent(i).split(ESCAPE_CHARACTER).join("")
@@ -38,6 +38,7 @@ export abstract class AbstractName implements Name {
     }
 
     public isEqual(other: Name): boolean {
+        IllegalArgumentException.assertIsNotNullOrUndefined(other)
         return this.asDataString() === other.asDataString()
     }
 
@@ -71,6 +72,7 @@ export abstract class AbstractName implements Name {
     abstract create_newInstance(other: string, delimiter: string): Name;
 
     public concat(other: Name): void {
+        IllegalArgumentException.assertIsNotNullOrUndefined(other)
         for(let i: number = 0;other.getNoComponents(); i++) {
             this.append(other.getComponent(i))
         }

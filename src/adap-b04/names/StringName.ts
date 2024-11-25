@@ -18,12 +18,14 @@ export class StringName extends AbstractName {
     }
 
     public getComponent(i: number): string {
+        // Precondition
         if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         return this.splitNotMaskedDelimiter(this.name, false)[i];
     }
 
     public setComponent(i: number, c: string) {
-        if (c === undefined || c === null) throw new IllegalArgumentException("index is undefined or null");
+        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        // Precondition
         if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name[i] = c
@@ -31,7 +33,8 @@ export class StringName extends AbstractName {
     }
 
     public insert(i: number, c: string) {
-        if (c === undefined || c === null) throw new IllegalArgumentException("index is undefined or null");
+        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        // Precondition
         if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i, 0, c)
@@ -40,11 +43,13 @@ export class StringName extends AbstractName {
     }
 
     public append(c: string) {
+        IllegalArgumentException.assertIsNotNullOrUndefined(c)
         this.name = this.name + this.delimiter + c
         this.noComponents++;
     }
 
     public remove(i: number) {
+        // Precondition
         if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name.splice(i,1)
@@ -53,6 +58,8 @@ export class StringName extends AbstractName {
     }
 
     private splitNotMaskedDelimiter(str: string, deleteEscapeCharacters: boolean ,delimiter: string = this.delimiter): string[] {
+        IllegalArgumentException.assertIsNotNullOrUndefined(str)
+        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
         let components: string[] = [""]
         let component_index: number = 0   
         for(let i=0;i<str.length;i++) {
@@ -78,7 +85,8 @@ export class StringName extends AbstractName {
     }
 
     create_newInstance(other: string, delimiter: string): Name {
-        if (other === undefined || other === null) throw new IllegalArgumentException("index is undefined or null");
+        IllegalArgumentException.assertIsNotNullOrUndefined(other)
+        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
         return new StringName(other, delimiter)
     }
 }
