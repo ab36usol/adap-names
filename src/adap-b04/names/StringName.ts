@@ -16,6 +16,7 @@ export class StringName extends AbstractName {
         this.name = other
     }
     public getNoComponents(): number {
+        MethodFailureException.assertCondition(this.noComponents >=0 , "method getNoComponents failed");
         return this.noComponents
     }
 

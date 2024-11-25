@@ -13,7 +13,10 @@ export abstract class AbstractName implements Name {
     }
 
     public clone(): Name {
-        return this.create_newInstance(this.asDataString(), this.delimiter)
+        let clone: Name = this.create_newInstance(this.asDataString(), this.delimiter)
+        //Postcondition
+        MethodFailureException.assertIsNotNullOrUndefined(clone)
+        return clone
     }
 
     public asString(delimiter: string = this.delimiter): string {
@@ -23,11 +26,15 @@ export abstract class AbstractName implements Name {
             let component_no_es = this.getComponent(i).split(ESCAPE_CHARACTER).join("")
             res += delimiter + component_no_es
         }
+        //Postcondition
+        MethodFailureException.assertIsNotNullOrUndefined(res);
         return res
     }
 
     public toString(): string {
-        return this.asString()
+        let str: string = this.asString(); 
+        MethodFailureException.assertIsNotNullOrUndefined(str);
+        return str
     }
 
     public asDataString(): string {
@@ -35,6 +42,8 @@ export abstract class AbstractName implements Name {
         for(let i: number = 1; i< this.getNoComponents(); i++) {
             res += this.delimiter + this.getComponent(i)
         }
+        //Postcondition
+        MethodFailureException.assertIsNotNullOrUndefined(res);
         return res
     }
 
@@ -55,10 +64,14 @@ export abstract class AbstractName implements Name {
     }
 
     public isEmpty(): boolean {
-        return this.getNoComponents() == 0
+        let no_componets: number = this.getNoComponents();
+        MethodFailureException.assertCondition(no_componets >= 0, "getNoComponents in method isEmpty is negativ");
+        return no_componets == 0
     }
 
     public getDelimiterCharacter(): string {
+        //Postcondition
+        MethodFailureException.assertIsNotNullOrUndefined(this.delimiter);
         return this.delimiter
     }
 

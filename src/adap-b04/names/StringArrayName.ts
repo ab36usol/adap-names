@@ -15,7 +15,9 @@ export class StringArrayName extends AbstractName {
     }
 
     public getNoComponents(): number {
-        return this.components.length
+        let no_componets: number = this.components.length
+        MethodFailureException.assertCondition(no_componets >=0 , "method getNoComponents failed");
+        return no_componets
     }
 
     public getComponent(i: number): string {
