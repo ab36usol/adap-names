@@ -1,6 +1,7 @@
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
+import { MethodFailureException } from "../common/MethodFailureException";
 
 export abstract class AbstractName implements Name {
 
@@ -73,9 +74,11 @@ export abstract class AbstractName implements Name {
 
     public concat(other: Name): void {
         IllegalArgumentException.assertIsNotNullOrUndefined(other)
+        let old_no_components: number = this.getNoComponents();
         for(let i: number = 0;other.getNoComponents(); i++) {
             this.append(other.getComponent(i))
         }
+        //Postcondition
+        MethodFailureException.assertCondition(old_no_components+other.getNoComponents() == this.getNoComponents() , "method concat failed")
     }
-
 }
