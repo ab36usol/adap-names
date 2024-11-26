@@ -2,7 +2,7 @@ import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 
 export class StringName extends AbstractName {
 
@@ -10,14 +10,13 @@ export class StringName extends AbstractName {
     protected noComponents: number = 0;
 
     constructor(other: string, delimiter?: string) {
-<<<<<<< HEAD
         IllegalArgumentException.assertIsNotNullOrUndefined(other)
         super(delimiter);
         this.noComponents = this.splitNotMaskedDelimiter(other, false).length
         this.name = other
     }
     public getNoComponents(): number {
-        MethodFailureException.assertCondition(this.noComponents >=0 , "method getNoComponents failed");
+        MethodFailedException.assertCondition(this.noComponents >=0 , "method getNoComponents failed");
         return this.noComponents
     }
 
@@ -35,7 +34,7 @@ export class StringName extends AbstractName {
         split_name[i] = c
         this.name = split_name.join(this.delimiter)
         // Postcondition 
-        MethodFailureException.assertCondition(this.getComponent(i) === c, "method setComponent failed")
+        MethodFailedException.assertCondition(this.getComponent(i) === c, "method setComponent failed")
     }
 
     public insert(i: number, c: string) {
@@ -48,7 +47,7 @@ export class StringName extends AbstractName {
         this.name = split_name.join(this.delimiter)
         this.noComponents++;
         // Postcondition
-        MethodFailureException.assertCondition(this.getComponent(i) === c && old_no_components+1 == this.getNoComponents() , "method insert failed")
+        MethodFailedException.assertCondition(this.getComponent(i) === c && old_no_components+1 == this.getNoComponents() , "method insert failed")
     }
 
     public append(c: string) {
@@ -57,7 +56,7 @@ export class StringName extends AbstractName {
         this.name = this.name + this.delimiter + c
         this.noComponents++;
         // Postcondition 
-        MethodFailureException.assertCondition(this.getComponent(old_no_components) === c && old_no_components+1 == this.getNoComponents() , "method append failed")
+        MethodFailedException.assertCondition(this.getComponent(old_no_components) === c && old_no_components+1 == this.getNoComponents() , "method append failed")
     }
 
     public remove(i: number) {
@@ -69,7 +68,7 @@ export class StringName extends AbstractName {
         this.name = split_name.join(this.delimiter)
         this.noComponents--;
         // Postcondition 
-        MethodFailureException.assertCondition(old_no_components-1 == this.getNoComponents() , "method remove failed")
+        MethodFailedException.assertCondition(old_no_components-1 == this.getNoComponents() , "method remove failed")
     }
 
     private splitNotMaskedDelimiter(str: string, deleteEscapeCharacters: boolean ,delimiter: string = this.delimiter): string[] {
@@ -97,66 +96,6 @@ export class StringName extends AbstractName {
             components[component_index] += str[i]
         }
         return components
-=======
-        super();
-        throw new Error("needs implementation or deletion");
-    }
-
-    public clone(): Name {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public asDataString(): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEqual(other: Name): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getHashCode(): number {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public isEmpty(): boolean {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getDelimiterCharacter(): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getNoComponents(): number {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public getComponent(i: number): string {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public setComponent(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public insert(i: number, c: string) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public append(c: string) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public remove(i: number) {
-        throw new Error("needs implementation or deletion");
-    }
-
-    public concat(other: Name): void {
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     create_newInstance(other: string, delimiter: string): Name {

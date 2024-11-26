@@ -20,12 +20,8 @@ export class Name {
 
     /** Expects that all Name components are properly masked */
     constructor(other: string[], delimiter?: string) {
-<<<<<<< HEAD
         this.components = other
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
-=======
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     /**
@@ -34,7 +30,6 @@ export class Name {
      * Users can vary the delimiter character to be used
      */
     public asString(delimiter: string = this.delimiter): string {
-<<<<<<< HEAD
         let nameString: string = ""
         for(let i=0;i<this.components.length;i++) {
             nameString += this.components[i]
@@ -42,9 +37,6 @@ export class Name {
                 nameString += this.delimiter
         }
         return nameString
-=======
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     /** 
@@ -53,7 +45,6 @@ export class Name {
      * The control characters in the data string are the default characters
      */
     public asDataString(): string {
-<<<<<<< HEAD
         let nameString: string = ""
         for(let i=0;i<this.components.length;i++) {
             nameString += this.components[i]
@@ -61,25 +52,17 @@ export class Name {
                 nameString += this.delimiter
         }
         return nameString
-=======
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     // @methodtype get-method (Query method)
     public getComponent(i: number): string {
-<<<<<<< HEAD
         if (i === undefined || null) 
             throw new Error("index is undefined or null");
         return this.components[i]
-=======
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     /** Expects that new Name component c is properly masked */
     public setComponent(i: number, c: string): void {
-<<<<<<< HEAD
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
         this.components[i] = c
@@ -88,47 +71,27 @@ export class Name {
     // @methodtype get-method (Query method)
     public getNoComponents(): number {
         return this.components.length
-=======
-        throw new Error("needs implementation or deletion");
-    }
-
-     /** Returns number of components in Name instance */
-     public getNoComponents(): number {
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     // @methodtype set-method (mutation-method)
     /** Expects that new Name component c is properly masked */
     public insert(i: number, c: string): void {
-<<<<<<< HEAD
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
         this.components.splice(i, 0, c)
-=======
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     // @methodtype set-method (mutation-method)
     /** Expects that new Name component c is properly masked */
     public append(c: string): void {
-<<<<<<< HEAD
         this.components.push(c);
-=======
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
     // @methodtype set-method (mutation-method)
     public remove(i: number): void {
-<<<<<<< HEAD
         if (i < 0 || i >= this.components.length) 
             throw new Error("invalid index");
         delete this.components[i]
-=======
-        throw new Error("needs implementation or deletion");
->>>>>>> fefc96f07ed0a1b5cea5fc6a8ff1987776dd5f6d
     }
 
 }
