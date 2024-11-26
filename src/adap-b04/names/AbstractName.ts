@@ -1,7 +1,7 @@
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 
 export abstract class AbstractName implements Name {
 
@@ -15,7 +15,7 @@ export abstract class AbstractName implements Name {
     public clone(): Name {
         let clone: Name = this.create_newInstance(this.asDataString(), this.delimiter)
         //Postcondition
-        MethodFailureException.assertIsNotNullOrUndefined(clone)
+        MethodFailedException.assertIsNotNullOrUndefined(clone)
         return clone
     }
 
@@ -27,13 +27,13 @@ export abstract class AbstractName implements Name {
             res += delimiter + component_no_es
         }
         //Postcondition
-        MethodFailureException.assertIsNotNullOrUndefined(res);
+        MethodFailedException.assertIsNotNullOrUndefined(res);
         return res
     }
 
     public toString(): string {
         let str: string = this.asString(); 
-        MethodFailureException.assertIsNotNullOrUndefined(str);
+        MethodFailedException.assertIsNotNullOrUndefined(str);
         return str
     }
 
@@ -43,7 +43,7 @@ export abstract class AbstractName implements Name {
             res += this.delimiter + this.getComponent(i)
         }
         //Postcondition
-        MethodFailureException.assertIsNotNullOrUndefined(res);
+        MethodFailedException.assertIsNotNullOrUndefined(res);
         return res
     }
 
@@ -65,13 +65,13 @@ export abstract class AbstractName implements Name {
 
     public isEmpty(): boolean {
         let no_componets: number = this.getNoComponents();
-        MethodFailureException.assertCondition(no_componets >= 0, "getNoComponents in method isEmpty is negativ");
+        MethodFailedException.assertCondition(no_componets >= 0, "getNoComponents in method isEmpty is negativ");
         return no_componets == 0
     }
 
     public getDelimiterCharacter(): string {
         //Postcondition
-        MethodFailureException.assertIsNotNullOrUndefined(this.delimiter);
+        MethodFailedException.assertIsNotNullOrUndefined(this.delimiter);
         return this.delimiter
     }
 
@@ -92,6 +92,6 @@ export abstract class AbstractName implements Name {
             this.append(other.getComponent(i))
         }
         //Postcondition
-        MethodFailureException.assertCondition(old_no_components+other.getNoComponents() == this.getNoComponents() , "method concat failed")
+        MethodFailedException.assertCondition(old_no_components+other.getNoComponents() == this.getNoComponents() , "method concat failed")
     }
 }
