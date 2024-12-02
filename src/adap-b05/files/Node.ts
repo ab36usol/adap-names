@@ -65,8 +65,6 @@ export class Node {
             matching_nodes.add(this);
             InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
         }
-        /*this.parentNode === null || this.parentNode === this*/
-        //let rn: RootNode = RootNode.getRootNode();
         let pn: Node = this.getParentNode();
         if(this === pn) {
             InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
