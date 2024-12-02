@@ -1,9 +1,11 @@
+import { RootNode } from "../../adap-b04/files/RootNode";
 import { ExceptionType, AssertionDispatcher } from "../common/AssertionDispatcher";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { InvalidStateException } from "../common/InvalidStateException";
 
 import { Name } from "../names/Name";
 import { Directory } from "./Directory";
+
 
 export class Node {
 
@@ -58,7 +60,24 @@ export class Node {
      * @param bn basename of node being searched for
      */
     public findNodes(bn: string): Set<Node> {
-        throw new Error("needs implementation or deletion");
+        let matching_nodes :Set<Node> = new Set<Node>();
+        if(this.baseName === bn) {
+            matching_nodes.add(this);
+            InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
+        }
+        /*this.parentNode === null || this.parentNode === this*/
+        //let rn: RootNode = RootNode.getRootNode();
+        let pn: Node = this.getParentNode();
+        if(this === pn) {
+            InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
+            return matching_nodes;
+        }
+        // Recursive call to find all matching nodes in subtree
+        let subtree_matches = this.parentNode.findNodes(bn)
+        InvalidStateException.assertIsNotNullOrUndefined(subtree_matches);
+        matching_nodes.forEach(subtree_matches.add, subtree_matches);
+        InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
+        return matching_nodes;
     }
 
     protected assertClassInvariants(): void {
