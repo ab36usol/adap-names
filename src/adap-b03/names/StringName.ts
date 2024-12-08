@@ -7,10 +7,10 @@ export class StringName extends AbstractName {
     protected name: string = "";
     protected noComponents: number = 0;
 
-    constructor(other: string, delimiter?: string) {
+    constructor(source: string, delimiter?: string) {
         super(delimiter);
-        this.noComponents = this.splitNotMaskedDelimiter(other, false).length
-        this.name = other
+        this.noComponents = this.splitNotMaskedDelimiter(source, false).length
+        this.name = source
     }
 
     getNoComponents(): number {

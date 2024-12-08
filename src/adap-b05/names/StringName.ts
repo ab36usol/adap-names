@@ -9,14 +9,14 @@ export class StringName extends AbstractName {
     protected name: string = "";
     protected noComponents: number = 0;
 
-    constructor(other: string, delimiter?: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(other)
+    constructor(source: string, delimiter?: string) {
+        IllegalArgumentException.assert(source !== null && source !== undefined)
         super(delimiter);
-        this.noComponents = this.splitNotMaskedDelimiter(other, false).length
-        this.name = other
+        this.noComponents = this.splitNotMaskedDelimiter(source, false).length
+        this.name = source
     }
     public getNoComponents(): number {
-        MethodFailedException.assertCondition(this.noComponents >=0 , "method getNoComponents failed");
+        MethodFailedException.assert(this.noComponents >=0 , "method getNoComponents failed");
         return this.noComponents
     }
 
@@ -27,18 +27,18 @@ export class StringName extends AbstractName {
     }
 
     public setComponent(i: number, c: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        IllegalArgumentException.assert(c !== null && c !== undefined)
         // Precondition
         if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let split_name : string[] = this.splitNotMaskedDelimiter(this.name, false)
         split_name[i] = c
         this.name = split_name.join(this.delimiter)
         // Postcondition 
-        MethodFailedException.assertCondition(this.getComponent(i) === c, "method setComponent failed")
+        MethodFailedException.assert(this.getComponent(i) === c, "method setComponent failed")
     }
 
     public insert(i: number, c: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        IllegalArgumentException.assert(c !== null && c !== undefined)
         // Precondition
         if (i < 0 || i >= this.name.length) throw new RangeError("invalid index");
         let old_no_components: number = this.getNoComponents()
@@ -47,16 +47,16 @@ export class StringName extends AbstractName {
         this.name = split_name.join(this.delimiter)
         this.noComponents++;
         // Postcondition
-        MethodFailedException.assertCondition(this.getComponent(i) === c && old_no_components+1 == this.getNoComponents() , "method insert failed")
+        MethodFailedException.assert(this.getComponent(i) === c && old_no_components+1 == this.getNoComponents() , "method insert failed")
     }
 
     public append(c: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        IllegalArgumentException.assert(c !== null && c !== undefined)
         let old_no_components: number = this.getNoComponents();
         this.name = this.name + this.delimiter + c
         this.noComponents++;
         // Postcondition 
-        MethodFailedException.assertCondition(this.getComponent(old_no_components) === c && old_no_components+1 == this.getNoComponents() , "method append failed")
+        MethodFailedException.assert(this.getComponent(old_no_components) === c && old_no_components+1 == this.getNoComponents() , "method append failed")
     }
 
     public remove(i: number) {
@@ -68,12 +68,12 @@ export class StringName extends AbstractName {
         this.name = split_name.join(this.delimiter)
         this.noComponents--;
         // Postcondition 
-        MethodFailedException.assertCondition(old_no_components-1 == this.getNoComponents() , "method remove failed")
+        MethodFailedException.assert(old_no_components-1 == this.getNoComponents() , "method remove failed")
     }
 
     private splitNotMaskedDelimiter(str: string, deleteEscapeCharacters: boolean ,delimiter: string = this.delimiter): string[] {
-        IllegalArgumentException.assertIsNotNullOrUndefined(str)
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
+        IllegalArgumentException.assert(str !== null && str !== undefined)
+        IllegalArgumentException.assert(delimiter !== null && delimiter !== undefined)
         let components: string[] = [""]
         let component_index: number = 0   
         for(let i=0;i<str.length;i++) {
@@ -99,8 +99,8 @@ export class StringName extends AbstractName {
     }
 
     create_newInstance(other: string, delimiter: string): Name {
-        IllegalArgumentException.assertIsNotNullOrUndefined(other)
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
+        IllegalArgumentException.assert(other !== null && other !== undefined)
+        IllegalArgumentException.assert(delimiter !== null && delimiter !== undefined)
         return new StringName(other, delimiter)
     }
 }

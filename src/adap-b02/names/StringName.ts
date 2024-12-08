@@ -8,10 +8,10 @@ export class StringName implements Name {
     protected noComponents: number = 0;
 
 
-    constructor(other: string, delimiter?: string) {
-        this.name = other
+    constructor(source: string, delimiter?: string) {
+        this.name = source
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
-        this.noComponents = this.splitNotMaskedDelimiter(other, false).length
+        this.noComponents = this.splitNotMaskedDelimiter(source, false).length
         
     }
     // @methodtype conversion-method (Query method)

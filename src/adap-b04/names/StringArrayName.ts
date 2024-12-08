@@ -8,15 +8,15 @@ export class StringArrayName extends AbstractName {
 
     protected components: string[] = [];
 
-    constructor(other: string[], delimiter?: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(other)
+    constructor(source: string[], delimiter?: string) {
+        IllegalArgumentException.assert(source !== null && source !== undefined)
         super(delimiter);
-        this.components = other
+        this.components = source
     }
 
     public getNoComponents(): number {
         let no_componets: number = this.components.length
-        MethodFailedException.assertCondition(no_componets >=0 , "method getNoComponents failed");
+        MethodFailedException.assert(no_componets >=0 , "method getNoComponents failed");
         return no_componets
     }
 
@@ -28,31 +28,31 @@ export class StringArrayName extends AbstractName {
     }
 
     public setComponent(i: number, c: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        IllegalArgumentException.assert(c !== null && c !== undefined)
         // Precondition
         if (i < 0 || i >= this.components.length) 
             throw new RangeError("invalid index");
         this.components[i] = c
         // Postcondition 
-        MethodFailedException.assertCondition(this.getComponent(i) === c, "method setComponent failed")
+        MethodFailedException.assert(this.getComponent(i) === c, "method setComponent failed")
     }
 
     public insert(i: number, c: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        IllegalArgumentException.assert(c !== null && c !== undefined)
         let old_no_components: number = this.getNoComponents();
         // Precondition
         if (i < 0 || i >= this.components.length) throw new RangeError("invalid index");
         this.components.splice(i, 0, c)
         // Postcondition 
-        MethodFailedException.assertCondition(this.getComponent(i) === c && old_no_components+1 == this.getNoComponents() , "method insert failed")
+        MethodFailedException.assert(this.getComponent(i) === c && old_no_components+1 == this.getNoComponents() , "method insert failed")
     }
 
     public append(c: string) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(c)
+        IllegalArgumentException.assert(c !== null && c !== undefined)
         let old_no_components: number = this.getNoComponents();
         this.components.push(c);
         // Postcondition 
-        MethodFailedException.assertCondition(this.getComponent(old_no_components) === c && old_no_components+1 == this.getNoComponents() , "method append failed")
+        MethodFailedException.assert(this.getComponent(old_no_components) === c && old_no_components+1 == this.getNoComponents() , "method append failed")
     }
 
     public remove(i: number) {
@@ -62,12 +62,12 @@ export class StringArrayName extends AbstractName {
         let old_no_components: number = this.getNoComponents();
         this.components.splice(i,1)
         // Postcondition 
-        MethodFailedException.assertCondition(old_no_components-1 == this.getNoComponents() , "method remove failed")
+        MethodFailedException.assert(old_no_components-1 == this.getNoComponents() , "method remove failed")
     }
 
     create_newInstance(other: string, delimiter: string): Name {
-        IllegalArgumentException.assertIsNotNullOrUndefined(other)
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
+        IllegalArgumentException.assert(other !== null && other !== undefined)
+        IllegalArgumentException.assert(delimiter !== null && delimiter !== undefined)
         let other_array: string[] = other.split(delimiter)
         return new StringArrayName(other_array, delimiter)
     }

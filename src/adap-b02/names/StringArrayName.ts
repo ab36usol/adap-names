@@ -6,8 +6,8 @@ export class StringArrayName implements Name {
     protected delimiter: string = DEFAULT_DELIMITER;
     protected components: string[] = [];
 
-    constructor(other: string[], delimiter?: string) {
-        this.components = other
+    constructor(source: string[], delimiter?: string) {
+        this.components = source
         this.delimiter = (delimiter !== undefined && delimiter !== null) ? delimiter: this.delimiter
     }
     // @methodtype conversion-method (Query method)

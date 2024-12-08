@@ -8,32 +8,32 @@ export abstract class AbstractName implements Name {
     protected delimiter: string = DEFAULT_DELIMITER;
 
     constructor(delimiter: string = DEFAULT_DELIMITER) {
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
+        IllegalArgumentException.assert(delimiter!==null || delimiter !==undefined);
         this.delimiter = delimiter
     }
 
     public clone(): Name {
         let clone: Name = this.create_newInstance(this.asDataString(), this.delimiter)
         //Postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(clone)
+        MethodFailedException.assert(clone !== null || clone !== undefined)
         return clone
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        IllegalArgumentException.assertIsNotNullOrUndefined(delimiter)
+        IllegalArgumentException.assert(delimiter!==null || delimiter !==undefined)
         let res: string = this.getComponent(0)
         for(let i: number = 1; i< this.getNoComponents(); i++) {
             let component_no_es = this.getComponent(i).split(ESCAPE_CHARACTER).join("")
             res += delimiter + component_no_es
         }
         //Postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(res);
+        MethodFailedException.assert(res !== null || res !== undefined);
         return res
     }
 
     public toString(): string {
         let str: string = this.asString(); 
-        MethodFailedException.assertIsNotNullOrUndefined(str);
+        MethodFailedException.assert(str !== null || str !== undefined);
         return str
     }
 
@@ -43,12 +43,12 @@ export abstract class AbstractName implements Name {
             res += this.delimiter + this.getComponent(i)
         }
         //Postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(res);
+        MethodFailedException.assert(res !== null || res !== undefined);
         return res
     }
 
     public isEqual(other: Name): boolean {
-        IllegalArgumentException.assertIsNotNullOrUndefined(other)
+        IllegalArgumentException.assert(other !== null || other !== undefined)
         return this.asDataString() === other.asDataString()
     }
 
@@ -65,13 +65,13 @@ export abstract class AbstractName implements Name {
 
     public isEmpty(): boolean {
         let no_componets: number = this.getNoComponents();
-        MethodFailedException.assertCondition(no_componets >= 0, "getNoComponents in method isEmpty is negativ");
+        MethodFailedException.assert(no_componets >= 0, "getNoComponents in method isEmpty is negativ");
         return no_componets == 0
     }
 
     public getDelimiterCharacter(): string {
         //Postcondition
-        MethodFailedException.assertIsNotNullOrUndefined(this.delimiter);
+        MethodFailedException.assert(this.delimiter !== null || this.delimiter !== undefined);
         return this.delimiter
     }
 
@@ -86,12 +86,12 @@ export abstract class AbstractName implements Name {
     abstract create_newInstance(other: string, delimiter: string): Name;
 
     public concat(other: Name): void {
-        IllegalArgumentException.assertIsNotNullOrUndefined(other)
+        IllegalArgumentException.assert(other !== null || other !== undefined)
         let old_no_components: number = this.getNoComponents();
         for(let i: number = 0;other.getNoComponents(); i++) {
             this.append(other.getComponent(i))
         }
         //Postcondition
-        MethodFailedException.assertCondition(old_no_components+other.getNoComponents() == this.getNoComponents() , "method concat failed")
+        MethodFailedException.assert(old_no_components+other.getNoComponents() == this.getNoComponents() , "method concat failed")
     }
 }

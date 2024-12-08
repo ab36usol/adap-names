@@ -1,5 +1,3 @@
-import { RootNode } from "../../adap-b04/files/RootNode";
-import { ExceptionType, AssertionDispatcher } from "../common/AssertionDispatcher";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { InvalidStateException } from "../common/InvalidStateException";
 
@@ -20,12 +18,12 @@ export class Node {
 
     protected initialize(pn: Directory): void {
         this.parentNode = pn;
-        this.parentNode.add(this);
+        this.parentNode.addChildNode(this);
     }
 
     public move(to: Directory): void {
-        this.parentNode.remove(this);
-        to.add(this);
+        this.parentNode.removeChildNode(this);
+        to.addChildNode(this);
         this.parentNode = to;
     }
 
@@ -63,29 +61,19 @@ export class Node {
         let matching_nodes :Set<Node> = new Set<Node>();
         if(this.baseName === bn) {
             matching_nodes.add(this);
-            InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
+            InvalidStateException.assert(matching_nodes !== null && matching_nodes !== undefined);
         }
         let pn: Node = this.getParentNode();
         if(this === pn) {
-            InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
+            InvalidStateException.assert(matching_nodes !== null && matching_nodes !== undefined);
             return matching_nodes;
         }
         // Recursive call to find all matching nodes in subtree
         let subtree_matches = this.parentNode.findNodes(bn)
-        InvalidStateException.assertIsNotNullOrUndefined(subtree_matches);
+        InvalidStateException.assert(subtree_matches !== null && matching_nodes !== undefined);
         matching_nodes.forEach(subtree_matches.add, subtree_matches);
-        InvalidStateException.assertIsNotNullOrUndefined(matching_nodes);
+        InvalidStateException.assert(matching_nodes !== null && matching_nodes !== undefined);
         return matching_nodes;
-    }
-
-    protected assertClassInvariants(): void {
-        const bn: string = this.doGetBaseName();
-        this.assertIsValidBaseName(bn, ExceptionType.CLASS_INVARIANT);
-    }
-
-    protected assertIsValidBaseName(bn: string, et: ExceptionType): void {
-        const condition: boolean = (bn != "");
-        AssertionDispatcher.dispatch(et, condition, "invalid base name");
     }
 
 }
